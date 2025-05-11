@@ -1,0 +1,393 @@
+//#region Cards
+class Card{
+    protected int id;
+    protected String name;
+    protected String[] types;
+    protected int cost;
+    public Card(int id, String name, int cost, String type1, String type2) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.types = new String[2];
+        this.types[0] = type1;
+        this.types[1] = type2;
+    }
+
+    public void print() {
+        System.out.printf("%20s", name);
+    }
+
+    public int getId() {
+        return this.id;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public int getCost() {
+        return this.cost;
+    }
+    public String[] getTypes(){
+        return this.types;
+    }
+}
+class MagicCard extends Card{
+    public MagicCard(int id, String name, int cost, String type1, String type2) {
+        super(id, name, cost, type1, type2);
+    }
+
+    @Override
+    public void print() {
+        System.out.printf("<%d> %s", cost, name);
+        for(int i=0; i<(30 - name.length() -1); i++) System.out.printf(".");
+        System.out.printf(" [%c]  %12s%12s", getMagicCardType(), '[' + types[0] + ']', '[' + types[1] + ']');
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str = str + String.format("<%d> %s", cost, name);
+        for(int i=0; i<(30 - name.length() -1); i++) str = str + ".";
+        str = str + String.format(" [%c]  %12s%12s", getMagicCardType(), '[' + types[0] + ']', '[' + types[1] + ']');
+        return str;
+    }
+
+    public char getMagicCardType() {
+        return '-';
+    }
+}
+class SpellCard extends MagicCard{
+    public SpellCard(int id, String name, int cost, String type1, String type2) {
+        super(id, name, cost, type1, type2);
+    }
+
+    @Override
+    public char getMagicCardType() {
+        return 'S';
+    }
+}
+class MysteryCard extends MagicCard{
+    public MysteryCard(int id, String name, int cost, String type1, String type2) {
+        super(id, name, cost, type1, type2);
+    }
+
+    @Override
+    public char getMagicCardType() {
+        return 'M';
+    }
+}
+class MonsterCard extends Card{
+    protected int power, armor;
+    public MonsterCard(int id, String name, int cost, String type1, String type2, int power, int armor) {
+        super(id, name, cost, type1, type2);
+        this.power = power;
+        this.armor = armor;
+    }
+
+    @Override
+    public void print() {
+        System.out.printf("{%d} %s", cost, name);
+        for(int i=0; i<(30 - name.length() -1); i++) System.out.printf(".");
+        System.out.printf(" [%c]  %12s%12s  %7s", getMonsterCardType(), '[' + types[0] + ']', '[' + types[1] + ']', power + "/" + armor);
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str = str + String.format("{%d} %s", cost, name);
+        for(int i=0; i<(30 - name.length() -1); i++) str = str + ".";
+        str = str + String.format(" [%c]  %12s%12s  %7s", getMonsterCardType(), '[' + types[0] + ']', '[' + types[1] + ']', power + "/" + armor);
+        return str;
+    }
+
+    public char getMonsterCardType() {
+        return '-';
+    }
+    public int getPower() {
+        return this.power;
+    }
+    public int getArmor() {
+        return this.armor;
+    }
+}
+class CreatureCard extends MonsterCard{
+    public CreatureCard(int id, String name, int cost, String type1, String type2, int power, int armor) {
+        super(id, name, cost, type1, type2, power, armor);
+    }
+
+    @Override
+    public char getMonsterCardType() {
+        return 'C';
+    }
+}
+class HeroCard extends MonsterCard{
+    public HeroCard(int id, String name, int cost, String type1, String type2, int power, int armor) {
+        super(id, name, cost, type1, type2, power, armor);
+    }
+
+    @Override
+    public char getMonsterCardType() {
+        return 'H';
+    }
+}
+//#endregion Cards
+class Deck{
+    private ArrayList<Card> cards;
+    public Deck() {
+        this.cards = new ArrayList<>();
+    }
+
+    public void print() {
+        System.out.println("Deck of  " + cards.size() + " cards:");
+        this.cards.forEach(card -> {
+            System.out.println();
+            card.print();
+        });
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str = "\nDeck of  " + cards.size() + " cards:";
+        for(Card card : this.cards) {
+            str = str + "\n" + card.toString();
+        }
+        return str;
+    }
+
+    public void shuffle() {
+        Random random = new Random();
+        for(int i=0; i<this.cards.size(); i++) {
+            Collections.swap(this.cards, i, random.nextInt(0, this.cards.size()));
+        }
+    }
+    public Card draw() {
+        if(this.cards.size() > 0) {
+            return this.cards.remove(this.cards.size() - 1);
+        }
+        return null;
+    }
+
+    //temporary
+    public static Deck generateTestDeck() {
+        Deck deck = new Deck();
+        deck.getCards().add(new CreatureCard(1, "Brown Tusky", 2, "Beast", "Verdant", 50, 40));
+        deck.getCards().add(new CreatureCard(1, "Brown Tusky", 2, "Beast", "Verdant", 50, 40));
+        deck.getCards().add(new CreatureCard(2, "Gray Wolf", 2, "Beast", "Verdant", 80, 70));
+        deck.getCards().add(new CreatureCard(2, "Gray Wolf", 2, "Beast", "Verdant", 80, 70));
+        deck.getCards().add(new CreatureCard(2, "Gray Wolf", 2, "Beast", "Verdant", 80, 70));
+        deck.getCards().add(new CreatureCard(3, "Dark Bear", 3, "Beast", "Verdant", 90, 110));
+        deck.getCards().add(new CreatureCard(3, "Dark Bear", 3, "Beast", "Verdant", 90, 110));
+        deck.getCards().add(new CreatureCard(3, "Dark Bear", 3, "Beast", "Verdant", 90, 110));
+        deck.getCards().add(new CreatureCard(4, "Ravenous Hyena", 2, "Beast", "Verdant", 70, 50));
+        deck.getCards().add(new CreatureCard(4, "Ravenous Hyena", 2, "Beast", "Verdant", 70, 50));
+        deck.getCards().add(new CreatureCard(4, "Ravenous Hyena", 2, "Beast", "Verdant", 70, 50));
+        deck.getCards().add(new CreatureCard(5, "Longfang Wolf", 4, "Beast", "Shadow", 190, 100));
+        deck.getCards().add(new CreatureCard(5, "Longfang Wolf", 4, "Beast", "Shadow", 190, 100));
+        deck.getCards().add(new MysteryCard(7, "Wolf Pack", 2, "Quick", "Nature"));
+        deck.getCards().add(new MysteryCard(8, "Hidden Panther", 2, "Creation", "Dark"));
+        deck.getCards().add(new MysteryCard(9, "Black Hole", 2, "Quick", "Dark"));
+        deck.getCards().add(new MysteryCard(14, "Beast Revenge", 2, "Quick", "Spirit"));
+        deck.getCards().add(new SpellCard(6, "Smell of Wildreness", 3, "Quick", "Nature"));
+        deck.getCards().add(new SpellCard(6, "Smell of Wildreness", 3, "Quick", "Nature"));
+        deck.getCards().add(new SpellCard(10, "Remains of Flesh", 0, "Trigger", "Blood"));
+        deck.getCards().add(new SpellCard(10, "Remains of Flesh", 0, "Trigger", "Blood"));
+        deck.getCards().add(new SpellCard(11, "Reborn", 4, "Quick", "Light"));
+        deck.getCards().add(new SpellCard(12, "Nature's Call", 3, "Quick", "Nature"));
+        deck.getCards().add(new SpellCard(12, "Nature's Call", 3, "Quick", "Nature"));
+        deck.getCards().add(new SpellCard(13, "Human Bones", 2, "Quick", "Blood"));
+        deck.getCards().add(new SpellCard(13, "Human Bones", 2, "Quick", "Blood"));
+        deck.getCards().add(new SpellCard(15, "Lion's Roar", 3, "Quick", "Spirit"));
+        deck.getCards().add(new SpellCard(15, "Lion's Roar", 3, "Quick", "Spirit"));
+        deck.getCards().add(new HeroCard(16, "Avern the Master of Beasts", 5, "Human", "Mage", 130, 30));
+        deck.getCards().add(new HeroCard(17, "Elderagg the Oldest Bear", 4, "Beast", "Verdant", 120, 240));
+        deck.shuffle();
+        return deck;
+    }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+}
+class Hand{
+    private ArrayList<Card> cards;
+    public Hand() {
+        this.cards = new ArrayList<>();
+    }
+
+    public void print() {
+        System.out.println("Hand of " + cards.size() + " cards:");
+        this.cards.forEach(card -> {
+            System.out.println();
+            card.print();
+        });
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str = "\nHand of  " + cards.size() + " cards:";
+        for(Card card : this.cards) {
+            str = str + "\n" + card.toString();
+        }
+        return str;
+    }
+
+    public void insert(Card card) {
+        this.cards.add(card);
+    }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+}
+class Graveyard{
+    private ArrayList<Card> cards;
+    public Graveyard() {
+        this.cards = new ArrayList<>();
+    }
+    
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+}
+class Tile{
+    protected Card card;
+    public Tile() {
+        this.card = null;
+    }
+
+    public boolean isEmpty() {
+        return this.card == null;
+    }
+
+    public Card getCard() {
+        return this.card;
+    }
+}
+class MonsterTile extends Tile{
+    private int currentPower, currentArmor;
+    private boolean hasAttacked;
+    //private String[] currentTypes..?
+    public MonsterTile() {
+        super();
+        this.currentPower = 0;
+        this.currentArmor = 0;
+        this.hasAttacked = false;
+    }
+
+    public int getCurrentPower() {
+        return this.currentPower;
+    }
+    public int getCurrentArmor() {
+        return this.currentArmor;
+    }
+    public boolean getHasAttacked() {
+        return this.hasAttacked;
+    }
+}
+class Board{
+    private Tile[] defensiveBoard, attackingBoard, magicBoard;
+    public Board() {
+        this.defensiveBoard = new Tile[4];
+        for(int i=0; i<4; i++) {
+            this.defensiveBoard[i] = new MonsterTile();
+        }
+        this.attackingBoard = new Tile[4];
+        for(int i=0; i<4; i++) {
+            this.defensiveBoard[i] = new MonsterTile();
+        }
+        this.magicBoard = new Tile[4];
+        for(int i=0; i<4; i++) {
+            this.defensiveBoard[i] = new Tile();
+        }
+    }
+    
+    public Tile[] getDefensiveBoard(){
+        return this.defensiveBoard;
+    }
+    public Tile[] getAttackingBoard(){
+        return this.attackingBoard;
+    }
+    public Tile[] getMagicBoard(){
+        return this.magicBoard;
+    }
+}
+
+class Player{
+    private String username;
+    private int health, maxMana, mana, maxRage, rage;
+    private Deck deck;
+    private Hand hand;
+    private Graveyard graveyard;
+    private Board board;
+
+    public Player(String username) {
+        this.deck = new Deck();
+        this.hand = new Hand();
+        this.graveyard = new Graveyard();
+        this.board = new Board();
+        this.maxMana = 5;
+        this.maxRage = 5;
+        this.mana = 5;
+        this.rage = 2;
+        this.health = 1000;
+        this.username = username;
+    }
+
+    public void draw() {
+        Card card = this.deck.draw();
+        if(card != null) {
+            this.hand.insert(card);
+        }
+    }
+
+    public String getUsername() {return this.username;}
+    public int getHealth() {return this.health;}
+    public int getMaxMana() {return this.maxMana;}
+    public int getMana() {return this.mana;}
+    public int getMaxRage() {return this.maxRage;}
+    public int getRage() {return this.rage;}
+    public Deck getDeck() {return this.deck;}
+    public Hand getHand() {return this.hand;}
+    public Graveyard getGraveyard() {return this.graveyard;}
+}
+
+class Game{
+    private Player[] players;
+    private int round, turn;
+    public Game() {
+        this.players = new Player[2];
+        players[0] = null;
+        players[1] = null;
+    }
+
+    public void setPlayer(Player player, int index) {
+        if((index < 0) || (index > (players.length-1))){
+            System.out.println(" Error in setPlayer(Player, int) : index out of bounds");
+            return;
+        };
+        this.players[index] = player;
+    }
+
+    public Player[] getPlayers() {
+        return this.players;
+    }
+    public Player getPlayer(int index){
+        if((index < 0) || (index > (players.length-1))){
+            System.out.println(" Error in getPlayer(int) : index out of bounds");
+            return null;
+        };
+        return this.players[index];
+    }
+    public int getRound() {
+        return this.round;
+    }
+    public int getTurn() {
+        return this.turn;
+    }
+}
+
+/*
+System.out.print("\033[H\033[2J");
+        System.out.flush();
+*/

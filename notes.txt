@@ -1,0 +1,27 @@
+cd Desktop/web-project-java-react
+javac src/main/java/com/httpserver/HttpServer.java -d out
+java -cp "lib/*;out" com.httpserver.HttpServer
+
+cd : enter folder
+javac : compile .java file
+java : run .class file from java
+-d : when you compile, specifies where to put the compiled file. ( -d out : creates an out directory)
+-cp : class path
+"lib/*;." : after -cp, used to compile with jar files.
+"lib/*;out" : after -cp, used to run code with jar files.
+RUN JAVA: java -cp "lib/*;out" com.httpserver.HttpServer
+
+Script for build.ps1 (compiles all java files from \java folder with including jars from /lib):
+Get-ChildItem -Recurse -Filter *.java src\main\java | ForEach-Object { $_.FullName } > sources.txt
+javac -d out -cp "lib\*;." $(Get-Content sources.txt)
+
+Documentation:  (it must start with: /** (2 stars))
+/**
+ * Computes the square root of a number.
+ * This method uses the Math library to compute the square root.
+ *
+ * @param number the number to compute the square root of
+ * @return the square root of the number
+ * @throws IllegalArgumentException if the number is negative
+ * @see java.lang.Math#sqrt(double)
+ */

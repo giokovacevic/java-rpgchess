@@ -1,0 +1,5 @@
+package com.app.fsm;
+
+public enum BattleState {
+    INITIALIZING, STARTING, PREPARING, PLANNING, MOVING, ATTACKING, WAITING, SIMULATING, CONCLUDING;
+}
