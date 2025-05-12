@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import com.app.core.battle.Board;
-import com.app.core.battle.Field;
-import com.app.core.entities.GameEntity;
 import com.app.fsm.BattleState;
 
 import javafx.scene.Group;

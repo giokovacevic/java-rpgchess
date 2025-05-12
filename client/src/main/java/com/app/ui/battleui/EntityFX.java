@@ -1,9 +1,5 @@
 package com.app.ui.battleui;
 
-import com.app.core.entities.BattleEntity;
-import com.app.core.entities.behaviour.Attackable;
-import com.app.core.entities.behaviour.Movable;
-
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,14 +1,5 @@
 package com.app;
 
-import com.app.core.battle.Battle;
-import com.app.core.battle.Board;
-import com.app.core.entities.Creature;
-import com.app.core.entities.Hero;
-import com.app.core.entities.HeroClass;
-import com.app.core.entities.Player;
-import com.app.core.entities.Unit;
-import com.app.core.entities.Weapon;
-import com.app.core.entities.WeaponType;
 import com.app.ui.LoginFX;
 import com.app.ui.battleui.BattleFX;
 
@@ -22,16 +13,7 @@ import javafx.stage.Stage;
 // cp -r src/main/resources/* out
 // java --module-path C:\javafx-sdk-21.0.5\lib --add-modules javafx.controls,javafx.fxml -cp out com.app.App
 
-/*
- - UPDATE NPC: TARGETING -> WAITING -> ATTACKING
-- WHEN I HOVER OVER FOR MOVEMENT AND ATTACK CHANGE DIRECTION OF MY CHARACTER
 
-
--NPC: 
-2 PROBLEMS WITH NPC: 
-  1. IF "IN RANGE" TILES ARE OCCUPIED, IT DOESN'T MOVE TOWARDS ENEMY. [HARD PROBLEM]
-
-  */
 
 public class App extends Application{
     public static void main(String[] args) {

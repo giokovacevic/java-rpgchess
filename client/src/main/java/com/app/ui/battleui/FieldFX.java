@@ -3,7 +3,6 @@ package com.app.ui.battleui;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.html.HTMLEditorKit.ParserCallback;
 
-import com.app.core.entities.BattleEntity;
 import com.app.fsm.BattleState;
 
 import javafx.animation.FadeTransition;

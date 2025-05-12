@@ -3,8 +3,6 @@ package com.app.ui.battleui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.app.core.battle.Battle;
-import com.app.core.entities.BattleEntity;
 import com.app.core.entities.behaviour.*;
 import com.app.fsm.BattleState;
 import com.app.network.ClientHandler;
